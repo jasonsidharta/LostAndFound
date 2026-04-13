@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - Lost & Found{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+    <h2>Admin Dashboard</h2>
+    <p class="page-subtitle">Overview of all users and platform activity</p>
+
+    <div class="admin-section">
+        <h3>Platform Summary</h3>
+        <table class="summary-table" style="border-collapse: collapse;">
+            <tr>
+                <th colspan="2" class="table-header">Lost &amp; Found Statistics</th>
+            </tr>
+            <tr>
+                <td><strong>Total Users</strong></td>
+                <td>{{ totals.total_users }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Items</strong></td>
+                <td>{{ totals.total_items }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Claims</strong></td>
+                <td>{{ totals.total_claims }}</td>
+            </tr>
+            <tr>
+                <td><strong>Items Resolved</strong></td>
+                <td>{{ totals.total_resolved }}</td>
+            </tr>
+        </table>
+    </div>
+
+    {% if categories|length > 0 %}
+    <div class="admin-section">
+        <h3>Items by Category</h3>
+        <table class="category-table" style="border-collapse: collapse;">
+            <tr>
+                <th colspan="2" class="table-header">Category Breakdown</th>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <th>Count</th>
+            </tr>
+            {% for cat in categories %}
+            <tr>
+                <td>{{ cat.category }}</td>
+                <td>{{ cat.count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+    <div class="admin-section">
+        <h3>User Details</h3>
+        <table class="users-table" style="border-collapse: collapse;">
+            <tr>
+                <th colspan="6" class="table-header">All Registered Users</th>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Items</th>
+                <th>Claims</th>
+                <th>Comments</th>
+                <th>Joined</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td><a href="{{ url_for('profile', username=user.username) }}">{{ user.username }}</a></td>
+                <td>{% if user.role == 'admin' %}<mark>admin</mark>{% else %}user{% endif %}</td>
+                <td>{{ user.item_count }}</td>
+                <td>{{ user.claim_count }}</td>
+                <td>{{ user.comment_count }}</td>
+                <td>{{ user.created_at }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="totals-row">
+                <td colspan="2"><strong>Totals</strong></td>
+                <td><strong>{{ totals.total_items }}</strong></td>
+                <td><strong>{{ totals.total_claims }}</strong></td>
+                <td><strong>-</strong></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

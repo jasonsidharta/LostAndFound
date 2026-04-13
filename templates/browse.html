@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Browse - Lost & Found{% endblock %}
+
+{% block content %}
+<div class="browse-page">
+    <h2>Browse Items</h2>
+    <p class="page-subtitle">
+        <strong>{{ total_lost }}</strong> lost &middot;
+        <strong>{{ total_found }}</strong> found &middot;
+        <strong>{{ total_resolved }}</strong> resolved
+    </p>
+
+    <div class="filter-bar">
+        <form method="GET" action="{{ url_for('browse') }}" class="filter-form">
+            <input type="text" name="q" placeholder="Search by keyword..." value="{{ q }}" class="filter-input">
+
+            <select name="category" class="filter-select">
+                <option value="">All Categories</option>
+                <option value="Electronics" {% if category == 'Electronics' %}selected{% endif %}>Electronics</option>
+                <option value="Clothing" {% if category == 'Clothing' %}selected{% endif %}>Clothing</option>
+                <option value="Keys" {% if category == 'Keys' %}selected{% endif %}>Keys</option>
+                <option value="Books" {% if category == 'Books' %}selected{% endif %}>Books</option>
+                <option value="ID/Cards" {% if category == 'ID/Cards' %}selected{% endif %}>ID/Cards</option>
+                <option value="Other" {% if category == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+
+            <select name="item_type" class="filter-select">
+                <option value="">Lost & Found</option>
+                <option value="lost" {% if item_type == 'lost' %}selected{% endif %}>Lost Only</option>
+                <option value="found" {% if item_type == 'found' %}selected{% endif %}>Found Only</option>
+            </select>
+
+            <select name="status" class="filter-select">
+                <option value="">All Status</option>
+                <option value="open" {% if status == 'open' %}selected{% endif %}>Open</option>
+                <option value="claimed" {% if status == 'claimed' %}selected{% endif %}>Claimed</option>
+                <option value="resolved" {% if status == 'resolved' %}selected{% endif %}>Resolved</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="{{ url_for('browse') }}" class="btn btn-secondary">Clear</a>
+        </form>
+    </div>
+
+    <div class="items-grid">
+        {% if items|length == 0 %}
+        <p class="no-items">No items found. Try a different search or <a href="{{ url_for('submit') }}">submit a new item</a>.</p>
+        {% endif %}
+
+        {% for item in items %}
+        <a href="{{ url_for('item_detail', item_id=item.id) }}" class="card card-{{ item.item_type }}">
+            <div class="card-header">
+                <span class="card-type type-{{ item.item_type }}">{{ item.item_type|upper }}</span>
+                <span class="card-status status-{{ item.status }}">{{ item.status|capitalize }}</span>
+            </div>
+            <h3 class="card-title">{{ item.title }}</h3>
+            <div class="card-meta">
+                <span class="card-category">{{ item.category }}</span>
+                <span class="card-location">{{ item.location }}</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-author">by {{ item.username }}</span>
+                <span class="card-date">{{ item.created_at }}</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

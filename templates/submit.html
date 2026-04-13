@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Submit Item - Lost & Found{% endblock %}
+
+{% block content %}
+<div class="submit-page">
+    <h2>Submit an Item</h2>
+    <p class="page-subtitle">Report something you lost or found on campus.</p>
+
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+
+    <div class="submit-card">
+        <form method="POST" action="{{ url_for('submit') }}">
+            <label for="item_type">Type</label>
+            <select id="item_type" name="item_type" required>
+                <option value="">-- Select --</option>
+                <option value="lost">I Lost Something</option>
+                <option value="found">I Found Something</option>
+            </select>
+
+            <label for="title">Item Title</label>
+            <input type="text" id="title" name="title" required placeholder="e.g. Black laptop charger" maxlength="100">
+
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="">-- Select --</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Keys">Keys</option>
+                <option value="Books">Books</option>
+                <option value="ID/Cards">ID/Cards</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required placeholder="e.g. IC Building 2nd floor" maxlength="100">
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required placeholder="Describe the item in detail..." maxlength="500"></textarea>
+
+            <button type="submit" class="btn btn-primary" id="submit-btn" disabled>Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var titleInput = document.getElementById('title');
+    var descInput = document.getElementById('description');
+    var locationInput = document.getElementById('location');
+    var typeSelect = document.getElementById('item_type');
+    var catSelect = document.getElementById('category');
+    var submitBtn = document.getElementById('submit-btn');
+
+    function checkFields() {
+        if (titleInput.value.trim().length > 0 &&
+            descInput.value.trim().length > 0 &&
+            locationInput.value.trim().length > 0 &&
+            typeSelect.value.length > 0 &&
+            catSelect.value.length > 0) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+    titleInput.addEventListener('input', checkFields);
+    descInput.addEventListener('input', checkFields);
+    locationInput.addEventListener('input', checkFields);
+    typeSelect.addEventListener('change', checkFields);
+    catSelect.addEventListener('change', checkFields);
+</script>
+{% endblock %}

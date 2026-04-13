@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lost & Found{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% if session.get('user_id') %}
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('browse') }}" class="nav-brand">Lost &amp; Found</a>
+            <a href="{{ url_for('browse') }}" class="nav-link {% if request.endpoint == 'browse' %}active{% endif %}">Browse</a>
+            <a href="{{ url_for('submit') }}" class="nav-link {% if request.endpoint == 'submit' %}active{% endif %}">Submit</a>
+            {% if session.get('role') == 'admin' %}
+            <a href="{{ url_for('admin') }}" class="nav-link {% if request.endpoint == 'admin' %}active{% endif %}">Admin</a>
+            {% endif %}
+            <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
+            <form action="{{ url_for('browse') }}" method="GET" id="search-form" class="nav-search">
+                <input type="text" name="q" placeholder="Search items..." class="search-input" value="{{ request.args.get('q', '') }}">
+            </form>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('profile', username=session.get('username')) }}" class="nav-link {% if request.endpoint == 'profile' %}active{% endif %}">{{ session.get('username') }} {% if session.get('role') == 'admin' %}<span class="badge-admin">admin</span>{% endif %}</a>
+            <a href="{{ url_for('logout') }}" class="nav-link logout-btn">Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}About - Lost & Found{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <h2>About Lost &amp; Found</h2>
+    <p class="page-subtitle">Everything you need to know about using <mark>Lost &amp; Found</mark></p>
+
+    <nav class="about-nav">
+        <a href="#what-is">What is it?</a>
+        <a href="#how-to-use">How to Use</a>
+        <a href="#features">Features</a>
+        <a href="#tech">Technologies</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+
+    <section id="what-is" class="about-section">
+        <h3>What is Lost &amp; Found?</h3>
+        <blockquote>
+            Lost &amp; Found is a <strong>campus-wide</strong> platform that helps students <em>report, search, and recover</em> lost items.
+            Whether you dropped your keys in the <mark>library</mark> or found someone's water bottle in the IC Building, this app connects you.
+        </blockquote>
+        <p>Every year, hundreds of items go missing on campus. Most are never reunited with their owners because there is no <strong>central place</strong> to report and search. Lost &amp; Found solves this by giving the UTSC community a single, <em>searchable</em> board where lost and found items are matched<sub>*</sub>.</p>
+        <p class="footnote"><sub>*</sub> Items are matched through the claims system, where users describe and verify ownership.</p>
+    </section>
+
+    <section id="how-to-use" class="about-section">
+        <h3>How to Use</h3>
+        <ol type="i">
+            <li>Create an account on the <strong>Sign Up</strong> page</li>
+            <li>If you <em>lost</em> something, click <strong>Submit</strong> and select "I Lost Something"</li>
+            <li>If you <em>found</em> something, click <strong>Submit</strong> and select "I Found Something"</li>
+            <li>Fill in the item details: title, category, location, and a <mark>detailed description</mark></li>
+            <li>Browse the board to see if someone already posted a matching item</li>
+            <li>Use the <strong>search bar</strong> and <em>filters</em> to narrow down results by category, type, or status</li>
+            <li>Submit a <strong>claim</strong> on an item if you believe it's yours — explain how you can identify it</li>
+            <li>The item poster reviews claims and can <em>approve</em> or <em>reject</em> them</li>
+            <li>Once a claim is approved, the item is marked as <mark>Resolved</mark></li>
+        </ol>
+    </section>
+
+    <section id="features" class="about-section">
+        <h3>Features</h3>
+        <dl>
+            <dt>Item Submission</dt>
+            <dd>Report lost or found items with a title, category, location, and detailed description. Each item gets its own page with a unique URL.</dd>
+
+            <dt>Search &amp; Filter</dt>
+            <dd>Search items by keyword or filter by category (Electronics, Clothing, Keys, Books, ID/Cards, Other), type (Lost/Found), and status (Open/Claimed/Resolved).</dd>
+
+            <dt>Claims System</dt>
+            <dd>Submit a claim on any item by explaining how you can identify it. The item owner reviews and approves or rejects each claim.</dd>
+
+            <dt>Comments</dt>
+            <dd>Add comments to items for extra info, questions, or tips. Helps the community collaborate on reuniting items.</dd>
+
+            <dt>User Profiles</dt>
+            <dd>Each user has a profile showing their activity, badges earned, and contribution statistics.</dd>
+
+            <dt>Admin Dashboard</dt>
+            <dd>Administrators can view platform statistics, user activity, and category breakdowns in organized tables.</dd>
+        </dl>
+    </section>
+
+    <section id="tech" class="about-section">
+        <h3>Technologies Used</h3>
+        <ul class="tech-list">
+            <li><strong>Flask</strong> &mdash; Python web framework for routing, sessions, cookies, and templates</li>
+            <li><strong>Jinja2</strong> &mdash; Template engine with inheritance, conditionals, and loops</li>
+            <li><strong>SQLite</strong> &mdash; Lightweight database for users, items, claims, and comments</li>
+            <li><strong>JavaScript</strong> &mdash; DOM manipulation and form validation with event listeners</li>
+            <li><strong>HTML5</strong> &mdash; Semantic markup with tables, forms, lists, and description lists</li>
+            <li><strong>CSS3</strong> &mdash; Flexbox layout, diverse selectors, and pseudo-class styling</li>
+        </ul>
+    </section>
+
+    <section id="faq" class="about-section">
+        <h3>Frequently Asked Questions</h3>
+        <dl class="faq-list">
+            <dt>Can anyone submit items?</dt>
+            <dd>Yes. Any registered user can submit both <em>lost</em> and <em>found</em> items.</dd>
+
+            <dt>How do claims work?</dt>
+            <dd>When you see an item that might be yours, submit a claim with a message explaining how you can identify it. The person who posted the item will <strong>review</strong> your claim and either approve or reject it.</dd>
+
+            <dt>What happens when a claim is approved?</dt>
+            <dd>The item status changes to <mark>Resolved</mark>. The two users can then coordinate pickup through comments.</dd>
+
+            <dt>Can I delete my post?</dt>
+            <dd>You can mark it as <strong>Resolved</strong> at any time. Admins can also manage items if needed.</dd>
+
+            <dt>What categories are available?</dt>
+            <dd>Electronics, Clothing, Keys, Books, ID/Cards, and Other. These cover the most common<sup>*</sup> types of lost items on campus.</dd>
+        </dl>
+        <p class="footnote"><sup>*</sup> Based on common items reported at UTSC campus.</p>
+    </section>
+
+    <p class="back-to-top"><a href="#what-is">&uarr; Back to top</a></p>
+</div>
+{% endblock %}

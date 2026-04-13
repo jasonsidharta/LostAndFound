@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Log In - Lost & Found{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">L&amp;F</div>
+        <h1>Lost &amp; Found</h1>
+        <p class="auth-tagline">Report. Search. Recover.</p>
+
+        <div class="auth-toggle">
+            <a href="{{ url_for('signup') }}" class="toggle-btn">Sign Up</a>
+            <a href="{{ url_for('login') }}" class="toggle-btn toggle-active">Log In</a>
+        </div>
+
+        {% if error %}
+        <p class="auth-error">{{ error }}</p>
+        {% endif %}
+
+        {% if msg %}
+        <p class="auth-success">{{ msg }}</p>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <div class="input-group">
+                <span class="input-icon">@</span>
+                <input type="text" id="username" name="username" required placeholder="username" value="{{ last_user }}">
+            </div>
+
+            <div class="input-group">
+                <span class="input-icon">*</span>
+                <input type="password" id="password" name="password" required placeholder="password">
+            </div>
+
+            <button type="submit" class="btn btn-primary auth-btn">Log In</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
