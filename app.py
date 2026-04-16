@@ -455,34 +455,6 @@ def profile(username):
     if profile_user[2] == 'admin':
         badges.append('Administrator')
 
-    # Recent activity
-    activities = []
-
-    item_rows = conn.execute(
-        'SELECT title, item_type, status, created_at FROM items WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
-        (user_id,)
-    ).fetchall()
-    for r in item_rows:
-        activities.append({
-            'type': r[1].capitalize(),
-            'details': r[0],
-            'date': r[3],
-            'status': r[2].capitalize()
-        })
-
-    claim_rows = conn.execute('''
-        SELECT i.title, c.status, c.created_at FROM claims c
-        JOIN items i ON c.item_id = i.id
-        WHERE c.user_id = ? ORDER BY c.created_at DESC LIMIT 5
-    ''', (user_id,)).fetchall()
-    for r in claim_rows:
-        activities.append({
-            'type': 'Claim',
-            'details': 'Claimed "' + r[0][:30] + '"',
-            'date': r[2],
-            'status': r[1].capitalize()
-        })
-
     conn.close()
 
     profile_data = {
@@ -492,7 +464,7 @@ def profile(username):
     }
 
     return render_template('profile.html', profile_user=profile_data, stats=stats,
-                           badges=badges, activities=activities)
+                           badges=badges)
 
 
 # ── Admin ──

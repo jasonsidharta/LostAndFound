@@ -6,7 +6,6 @@
     <div class="profile-header">
         <h2>{{ profile_user.username }} {% if profile_user.role == 'admin' %}<span class="badge-admin">admin</span>{% endif %}</h2>
         <p class="page-subtitle">Member since <em>{{ profile_user.created_at }}</em></p>
-        <a href="#activity-table">Jump to Activity &darr;</a>
     </div>
 
     <div class="profile-section">
@@ -47,37 +46,7 @@
     </div>
     {% endif %}
 
-    <div class="profile-section" id="activity-table">
-        <h3>Recent Activity</h3>
-        {% if activities|length > 0 %}
-        <table class="activity-table" style="border-collapse: collapse;">
-            <tr>
-                <th colspan="4" class="table-header">Activity Log for {{ profile_user.username }}</th>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <th>Details</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-            {% for activity in activities %}
-            <tr>
-                <td>{{ activity.type }}</td>
-                <td>{{ activity.details }}</td>
-                <td>{{ activity.date }}</td>
-                <td>{{ activity.status }}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="4" class="table-footer">Total: {{ activities|length }} recent activities</td>
-            </tr>
-        </table>
-        {% else %}
-        <p class="no-activity">No activity yet.</p>
-        {% endif %}
-    </div>
-
-    <div class="profile-section">
+<div class="profile-section">
         <h3>How to Contribute</h3>
         <ol type="i">
             <li>Report items you've <strong>lost</strong> with a detailed description</li>
